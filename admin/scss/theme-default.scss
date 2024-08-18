@@ -96,6 +96,8 @@ $primary-color: #696cff;
   }
 }
 
+ 
+
 // Footer
 // ---------------------------------------------------------------------------
 @include template-footer-style('.bg-footer-theme', $card-bg, $color: $body-color, $active-color: $primary-color);

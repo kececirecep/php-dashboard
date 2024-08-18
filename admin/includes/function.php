@@ -43,3 +43,17 @@ function userDelete($userId)
 }
 
 
+// Kullanıcı güncelleme fonksiyonu
+function updateUser($userId, $adSoyad, $email, $tel, $yas)
+{
+    global $db;
+    if ($db === null) {
+        throw new Exception("Veritabanı bağlantısı sağlanamadı.");
+    }
+
+    $stmt = $db->prepare("UPDATE kullanicilar SET ad = ?, email = ?, telefon = ?, yas = ? WHERE id = ?");
+    $success = $stmt->execute([$adSoyad, $email, $tel, $yas, $userId]);
+
+    return $success;
+}
+

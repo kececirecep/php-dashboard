@@ -26,6 +26,27 @@ if (isset($_GET['delete'])) {
   }
 }
 
+
+// Güncelleme işlemi
+if (isset($_POST['update'])) {
+  $userId = intval($_POST['userId']);
+  $adSoyad = $_POST['adSoyad'];
+  $email = $_POST['email'];
+  $tel = $_POST['tel'];
+  $yas = intval($_POST['yas']);
+
+  try {
+    $success = updateUser($userId, $adSoyad, $email, $tel, $yas);
+    if ($success) {
+      echo "Kullanıcı başarıyla güncellendi!";
+    } else {
+      echo "Kullanıcı güncellenirken bir hata oluştu.";
+    }
+  } catch (Exception $e) {
+    echo "Hata: " . $e->getMessage();
+  }
+}
+
 ?>
 
 <div class="layout-wrapper layout-content-navbar">
@@ -51,28 +72,65 @@ if (isset($_GET['delete'])) {
                           <th>Email</th>
                           <th>Telefon</th>
                           <th>Yaş</th>
-                          <th>İşlem</th>
+                          <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody class="table-border-bottom-0">
                         <?php foreach ($kullanicilar as $kullanici): ?>
                           <tr>
-                            <td><?php echo ($kullanici['ad']); ?></td>
-                            <td><?php echo ($kullanici['email']); ?></td>
-                            <td><?php echo ($kullanici['telefon']); ?></td>
-                            <td><?php echo ($kullanici['yas']); ?></td>
+                            <td><?php echo htmlspecialchars($kullanici['ad']); ?></td>
+                            <td><?php echo htmlspecialchars($kullanici['email']); ?></td>
+                            <td><?php echo htmlspecialchars($kullanici['telefon']); ?></td>
+                            <td><?php echo htmlspecialchars($kullanici['yas']); ?></td>
                             <td>
                               <div class="dropdown">
                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                   <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                  <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                  <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i>
+                                    <button class="updateBtn" type="button" data-bs-toggle="modal" data-bs-target="#editModal-<?php echo htmlspecialchars($kullanici['id']); ?>">Edit</button>
+                                  </a>
                                   <a class="dropdown-item" href="?delete=<?php echo htmlspecialchars($kullanici['id']); ?>" onclick="return confirm('Bu kullanıcıyı silmek istediğinizden emin misiniz?');"><i class="bx bx-trash me-1"></i> Delete</a>
                                 </div>
                               </div>
                             </td>
                           </tr>
+
+                          <!-- Modal for editing user -->
+                          <div class="modal fade" id="editModal-<?php echo htmlspecialchars($kullanici['id']); ?>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="editModalLabel">Kullanıcıyı Düzenle</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <form method="post" action="">
+                                    <input type="hidden" name="userId" value="<?php echo htmlspecialchars($kullanici['id']); ?>">
+                                    <div class="mb-4">
+                                      <label for="adSoyad" class="form-label">Ad Soyad</label>
+                                      <input class="form-control" type="text" name="adSoyad" id="adSoyad" value="<?php echo htmlspecialchars($kullanici['ad']); ?>" required />
+                                    </div>
+                                    <div class="mb-4">
+                                      <label for="email" class="form-label">Email</label>
+                                      <input class="form-control" type="email" name="email" id="email" value="<?php echo htmlspecialchars($kullanici['email']); ?>" required />
+                                    </div>
+                                    <div class="mb-4">
+                                      <label for="tel" class="form-label">Telefon</label>
+                                      <input class="form-control" type="tel" name="tel" id="tel" value="<?php echo htmlspecialchars($kullanici['telefon']); ?>" required />
+                                    </div>
+                                    <div class="mb-4">
+                                      <label for="yas" class="form-label">Yaş</label>
+                                      <input class="form-control" type="number" name="yas" id="yas" value="<?php echo htmlspecialchars($kullanici['yas']); ?>" required />
+                                    </div>
+                                    <button type="submit" name="update" class="btn btn-primary">Güncelle</button>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                         <?php endforeach; ?>
                       </tbody>
                     </table>
