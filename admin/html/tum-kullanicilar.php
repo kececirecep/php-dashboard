@@ -87,10 +87,8 @@ if (isset($_POST['update'])) {
                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                   <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
-                                <div class="dropdown-menu">
-                                  <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i>
-                                    <button class="updateBtn" type="button" data-bs-toggle="modal" data-bs-target="#editModal-<?php echo htmlspecialchars($kullanici['id']); ?>">Edit</button>
-                                  </a>
+                                <div class="dropdown-menu"> 
+                                  <button class="updateBtn dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editModal-<?php echo htmlspecialchars($kullanici['id']); ?>"><i class="bx bx-edit-alt me-1"></i>Edit</button> 
                                   <a class="dropdown-item" href="?delete=<?php echo htmlspecialchars($kullanici['id']); ?>" onclick="return confirm('Bu kullanıcıyı silmek istediğinizden emin misiniz?');"><i class="bx bx-trash me-1"></i> Delete</a>
                                 </div>
                               </div>
