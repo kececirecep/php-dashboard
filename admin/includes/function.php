@@ -27,3 +27,17 @@ function listUsers()
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
+function userDelete($userId)
+{
+    global $db;
+    if ($db === null) {
+        throw new Exception("Veritabanı bağlantısı sağlanamadı.");
+    }
+
+    $stmt = $db->prepare("DELETE FROM kullanicilar WHERE id = ?");
+    $success = $stmt->execute([$userId]);
+
+    return $success;
+}
