@@ -3,7 +3,7 @@
 include('db.php'); // Veritabanı bağlantısı
 
 // Kullanıcıyı veritabanına ekler
-function getUser($adSoyad, $email, $tel, $yas)
+function addUser($adSoyad, $email, $tel, $yas)
 {
     global $db; // Veritabanı bağlantısını kullan
 
@@ -41,3 +41,5 @@ function userDelete($userId)
 
     return $success;
 }
+
+

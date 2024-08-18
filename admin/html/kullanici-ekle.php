@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $tel = $_POST['tel'];
   $yas = $_POST['yas'];
 
-  $success = getUser($adSoyad, $email, $tel, $yas);
+  $success = addUser($adSoyad, $email, $tel, $yas);
 
   if ($success) {
     echo "Kullanıcı başarıyla eklendi!";

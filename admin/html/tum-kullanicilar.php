@@ -57,10 +57,10 @@ if (isset($_GET['delete'])) {
                       <tbody class="table-border-bottom-0">
                         <?php foreach ($kullanicilar as $kullanici): ?>
                           <tr>
-                            <td><?php echo htmlspecialchars($kullanici['ad']); ?></td>
-                            <td><?php echo htmlspecialchars($kullanici['email']); ?></td>
-                            <td><?php echo htmlspecialchars($kullanici['telefon']); ?></td>
-                            <td><?php echo htmlspecialchars($kullanici['yas']); ?></td>
+                            <td><?php echo ($kullanici['ad']); ?></td>
+                            <td><?php echo ($kullanici['email']); ?></td>
+                            <td><?php echo ($kullanici['telefon']); ?></td>
+                            <td><?php echo ($kullanici['yas']); ?></td>
                             <td>
                               <div class="dropdown">
                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
